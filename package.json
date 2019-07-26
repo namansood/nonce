@@ -1,0 +1,27 @@
+{
+  "name": "nonce",
+  "version": "1.0.0",
+  "description": "One time link shortener",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/namansood/nonce.git"
+  },
+  "author": "Naman Sood",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/namansood/nonce/issues"
+  },
+  "homepage": "https://github.com/namansood/nonce#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "consolidate": "^0.15.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.6",
+    "mustache": "^3.0.1",
+    "shortid": "^2.2.14"
+  }
+}

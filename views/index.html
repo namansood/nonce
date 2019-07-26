@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nonce - One Time Link Shortener</title>
+</head>
+<body>
+
+	{{#expired}}
+		<p>The link you were trying to follow has either expired or never existed. Tough luck!</p>
+	{{/expired}}
+
+	<form method="post" action="/">
+		
+		<input type="text" name="url" placeholder="Enter URL">
+		<input type="number" name="count">
+
+		<input type="submit" value="Nonce!">
+
+	</form>
+
+</body>
+</html>
