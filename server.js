@@ -32,16 +32,17 @@ app.post('/', (req, res) => {
 
 	let id = shortid.generate();
 
-	let obj = new db({
-		url,
-		max: count,
-		current: 0,
-		id
+	let params = [id, url, 0, count];
+
+	db.query('INSERT INTO Links (id, url, current, max) VALUES (?,?,?,?)', params, (err) => {
+		if(err) {
+			console.log(err);
+			res.redirect('/');
+			return;
+		}
+		res.redirect(`/success?id=${id}`);
 	});
 
-	obj.save();
-
-	res.redirect(`/success?id=${id}`);
 });
 
 app.get('/success', (req, res) => {
@@ -55,9 +56,9 @@ app.get('/success', (req, res) => {
 
 app.get('/:id', (req, res, next) => {
 	if(shortid.isValid(req.params.id)) {
-		db.findOne({
-			id: req.params.id
-		}, (err, result) => {
+		db.query('SELECT * FROM Links WHERE id=?', [req.params.id], (err, results) => {
+			let result = results[0];
+
 			if(err) {
 				console.log(err);
 				res.redirect('/');
@@ -72,15 +73,12 @@ app.get('/:id', (req, res, next) => {
 			let clicksDone = result.current + 1;
 
 			if(result.max > clicksDone) {
-				result.current = clicksDone;
-				result.save();
+				db.query('UPDATE Links SET current=? WHERE id=?', [clicksDone, req.params.id]);
 			}
 
 			else {
-				result.remove();
+				db.query('DELETE FROM Links WHERE id=?', [req.params.id]);
 			}
-
-			console.log(result, clicksDone);
 
 			res.redirect(result.url);
 		});
