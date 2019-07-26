@@ -2,21 +2,47 @@
 <html>
 <head>
 	<title>Nonce - One Time Link Shortener</title>
+	<link rel="stylesheet" type="text/css" href="/public/style.css">
 </head>
 <body>
 
 	{{#expired}}
-		<p>The link you were trying to follow has either expired or never existed. Tough luck!</p>
+		<div class="expired-message">The link you were trying to follow has either expired or never existed. Tough luck!</div>
 	{{/expired}}
+
+	<h1>Nonce - One Time Link Shortener</h1>
 
 	<form method="post" action="/">
 		
-		<input type="text" name="url" placeholder="Enter URL">
-		<input type="number" name="count">
+		<p>Generate a link to</p>
+		<input type="text" name="url" placeholder="https://whoknows.where" required>
+		<p>that lasts for</p>
+		<input type="number" name="count" value="1" required>
+		<p class="clicks">click</p>
 
 		<input type="submit" value="Nonce!">
 
 	</form>
+
+	<footer>
+		&copy; <script>document.write((new Date()).getFullYear())</script> Naman Sood
+	</footer>
+
+	<script>
+		
+		var counter = document.querySelector('[name="count"]');
+		var clicks = document.querySelector('.clicks');
+		counter.addEventListener('change', function(e) {
+			if(Number(counter.value) !== 1) {
+				clicks.textContent = 'clicks';
+			}
+
+			else {
+				clicks.textContent = 'click';
+			}
+		});
+
+	</script>
 
 </body>
 </html>
